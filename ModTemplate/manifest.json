@@ -1,8 +1,8 @@
 {
   "filename": "ModTemplate.dll",
-  "author": "Raicuparta",
+  "author": "Skyball",
   "name": "Mod Template",
-  "uniqueName": "Raicuparta.ModTemplate",
+  "uniqueName": "Skyball.ModTemplate",
   "version": "0.1.0",
   "owmlVersion": "2.3.2"
 }
