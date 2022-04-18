@@ -15,7 +15,9 @@ This currently includes:
   - cacti
   - ghost matter
 - and some specific places
-  - anglerfish overview pod path: stalagmites
-  - lakebed: first part stalagmites
+  - anglerfish overview pod path: stalagmites that block the way
+  - lakebed: first maze cave part stalagmites
   - sunless city eye shrine: glass window (messes up gravity direction when passed through)
-  - sunless city cannon path: stones in ghost matter building
+  - sunless city cannon path: stones and cacti in ghost matter building
+  - tower of quantum knowledge: gravity stairs (not visually, only gravity volumes are spawned)
+  - tower of quantum knowledge: scout launch holes on middle section
