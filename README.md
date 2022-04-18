@@ -33,3 +33,6 @@ This currently includes:
   - interloper: specific ghost matter patches
   - quantum moon, giant's deep: north pole tornado
   - quantum moon, dark bramble: north pole brambles (**!** *disables ground collision on entire planet, use jetpack* **!**)
+
+Please do not judge the code too harshly, this is my first time writing C# and using Unity. I've had a blast creating this
+and I really hope you enjoy using it!

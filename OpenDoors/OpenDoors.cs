@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Globalization;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using OWML.Common;
-using OWML.Common.Menus;
 using OWML.ModHelper;
-using OWML.ModHelper.Events;
-using OWML.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.UI;
 
-namespace ModTemplate
+namespace OpenDoors
 {
-    public class ModTemplate : ModBehaviour
+    public class OpenDoors : ModBehaviour
     {
         private bool _ready = false;
-        private bool _filterObjects = true;
-        private float _maxDistance = 30f;
+        private bool _debugMode = false;
+        private float _maxDistance = 70f;
 
         private void Awake()
         {
@@ -49,54 +42,31 @@ namespace ModTemplate
 
         private void InteractionNearbyObjects(bool activateCollision)
         {
+            var start = DateTime.Now;
+
             var playerBody = FindObjectOfType<PlayerBody>();
             var playerPos = playerBody.transform.position;
 
             var allGameObjects = GetAllGameObjectsAroundPosition(playerPos, _maxDistance);
             var numObjects = 0;
-            var affectedObjects = 0;
-            var saveString = "";
-
-            var logString = "";
 
             foreach (var obj in allGameObjects)
             {
                 numObjects++;
-                saveString += $"{obj.name}\t\t{obj.activeSelf}\t\t{obj.transform.childCount}\n";
 
                 if (IsHideableObject(obj))
                 {
                     SetGameObjectVisibility(obj, activateCollision);
-
-                    affectedObjects++;
-                    if (obj.transform.childCount > 0)
-                    {
-                        logString += $" {obj.name} ({obj.transform.childCount})";
-                    }
-                    else
-                    {
-                        logString += $" {obj.name}";
-                    }
                 }
             }
 
-            affectedObjects += SetFullPathObjectsVisibility(activateCollision);
+            SetFullPathObjectsVisibility(activateCollision);
 
             SetOpenStateOfComplexElements(!activateCollision);
 
-            if (affectedObjects > 0)
-            {
-                logString = $"Applied door state to ({affectedObjects}/{numObjects}) objects: " + logString;
-                ModHelper.Console.WriteLine(logString, MessageType.Success);
-            }
-            else
-            {
-                ModHelper.Console.WriteLine("No objects affected", MessageType.Warning);
-            }
-
-            File.WriteAllText("objectCounts.txt", saveString);
-            ModHelper.Console.WriteLine($"Saved {numObjects} objects to file {Path.GetFullPath("objectCounts.txt")}",
-                MessageType.Info);
+            ModHelper.Console.WriteLine(activateCollision
+                ? $"Closed surrounding doors in {(DateTime.Now - start).TotalMilliseconds} ms"
+                : $"Opened surrounding doors in {(DateTime.Now - start).TotalMilliseconds} ms");
         }
 
         private HashSet<GameObject> GetAllGameObjectsAroundPosition(Vector3 referencePosition, float maxDistance)
@@ -115,11 +85,6 @@ namespace ModTemplate
                 allGameObjects.Add(obj);
 
                 ExtractAllParents(obj, allGameObjects);
-            }
-
-            if (_filterObjects)
-            {
-                allGameObjects.RemoveWhere(ShouldObjectNameBeSkipped);
             }
 
             return allGameObjects;
@@ -146,19 +111,14 @@ namespace ModTemplate
             return GUIUtility.systemCopyBuffer;
         }
 
-        private int SetFullPathObjectsVisibility(bool visible)
+        private void SetFullPathObjectsVisibility(bool visible)
         {
-            var count = 0;
-
             foreach (var (key, value) in _hideDoorObjectsByFullPath)
             {
                 var obj = GameObject.Find(key);
                 if (obj == null) continue;
                 SetGameObjectVisibility(obj, visible);
-                count++;
             }
-
-            return count;
         }
 
         private void SetGameObjectVisibility(string obj, bool visible)
@@ -294,7 +254,6 @@ namespace ModTemplate
             _hideDoorObjectsEquals.Add("Door_B", "stranger door wing B");
             _hideDoorObjectsEquals.Add("COL_IP_Door_A", "stranger dream hotel door collision A");
             _hideDoorObjectsEquals.Add("COL_IP_Door_B", "stranger dream hotel door collision B");
-            _hideDoorObjectsEquals.Add("Door_B", "stranger door wing B");
             _hideDoorObjectsEquals.Add("ElevatorDestinations", "stranger elevator");
             _hideDoorObjectsEquals.Add("Sarc_Piece_A", "stranger sarcophagus door A");
             _hideDoorObjectsEquals.Add("Sarc_Piece_B", "stranger sarcophagus door B");
@@ -412,11 +371,6 @@ namespace ModTemplate
                 InteractionNearbyObjects(true);
             }
 
-            if (Keyboard.current[Key.L].wasPressedThisFrame)
-            {
-                _filterObjects = !_filterObjects;
-            }
-
             if (Keyboard.current[Key.K].wasPressedThisFrame)
             {
                 _maxDistance = _maxDistance + 10;
@@ -429,7 +383,7 @@ namespace ModTemplate
                 ModHelper.Console.WriteLine($"Max distance: {_maxDistance}");
             }
 
-            if (Keyboard.current[Key.I].wasPressedThisFrame)
+            if (_debugMode && Keyboard.current[Key.I].wasPressedThisFrame)
             {
                 var clipboardText = GetClipboardText();
                 if (clipboardText.Length > 0)

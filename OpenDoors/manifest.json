@@ -1,8 +1,8 @@
 {
-  "filename": "ModTemplate.dll",
+  "filename": "OpenDoors.dll",
   "author": "Skyball",
   "name": "Open Doors",
-  "uniqueName": "Skyball.ModTemplate",
+  "uniqueName": "Skyball.OpenDoors",
   "version": "0.1.0",
   "owmlVersion": "2.3.2"
 }
