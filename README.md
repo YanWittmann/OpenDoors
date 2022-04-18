@@ -16,6 +16,10 @@ This currently includes:
   - ghost matter
   - emergency hatches
   - airlocks
+  - stranger light rotating sun doors
+  - stranger secret passage murals
+  - dream world closed doors
+  - stranger elevators (removes entire elevator)
 - and some specific places
   - anglerfish overview pod path: stalagmites that block the way
   - lakebed: first maze cave part stalagmites

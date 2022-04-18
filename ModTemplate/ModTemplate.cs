@@ -248,6 +248,30 @@ namespace ModTemplate
             _hideDoorObjectsByFullPath.Add(
                 "Comet_Body/Sector_CO/Geometry_CO/MeltingIce",
                 "interloper melting ice");
+            _hideDoorObjectsByFullPath.Add(
+                "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_PrisonDocks/Sector_PrisonInterior/Interactibles_PrisonInterior/Prefab_IP_Sarcophagus/Geo_IP_Sarcophagus/Seals",
+                "stranger sarcophagus seal geometry");
+            _hideDoorObjectsByFullPath.Add(
+                "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_PrisonDocks/Sector_PrisonInterior/Interactibles_PrisonInterior/Prefab_IP_Sarcophagus/Symbol_Sarcophagus_01",
+                "stranger sarcophagus seal symbol 1");
+            _hideDoorObjectsByFullPath.Add(
+                "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_PrisonDocks/Sector_PrisonInterior/Interactibles_PrisonInterior/Prefab_IP_Sarcophagus/Symbol_Sarcophagus_02",
+                "stranger sarcophagus seal symbol 2");
+            _hideDoorObjectsByFullPath.Add(
+                "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_PrisonDocks/Sector_PrisonInterior/Interactibles_PrisonInterior/Prefab_IP_Sarcophagus/Symbol_Sarcophagus_03",
+                "stranger sarcophagus seal symbol 3");
+            _hideDoorObjectsByFullPath.Add(
+                "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_BlightedShore/Sector_JammingControlRoom_Zone4/Interactables_JammingControlRoom_Zone4/Rotten_IP_Wall_Probe_A_Flipped",
+                "stranger signal jammer scout wall");
+            _hideDoorObjectsByFullPath.Add(
+                "DreamWorld_Body/Sector_DreamWorld/Sector_Underground/Interactibles_Underground/SarcophagusController/SarcophagusHoleCover",
+                "stranger dream sarcophagus wall hole cover");
+            _hideDoorObjectsByFullPath.Add(
+                "DreamWorld_Body/Sector_DreamWorld/Sector_Underground/Interactibles_Underground/SarcophagusController/Seals",
+                "stranger dream sarcophagus seal symbol 3");
+            _hideDoorObjectsByFullPath.Add(
+                "DreamWorld_Body/Sector_DreamWorld/Sector_Underground/Volumes_Underground/WaterVolume_Underground",
+                "stranger dream underground sector water volume");
 
             _hideDoorObjectsEquals.Add("slabs_door", "large orb doors");
             _hideDoorObjectsEquals.Add("Structure_NOM_RotatingDoor_Broken_Panels", "single sided rotating orb door");
@@ -265,10 +289,21 @@ namespace ModTemplate
             _hideDoorObjectsEquals.Add("Fol_GM_Clutter", "interloper ghost matter patches");
             _hideDoorObjectsEquals.Add("OPC_Connector_Broken_BrokenPiece",
                 "orbital probe cannon alunch module broken pieces");
+            _hideDoorObjectsEquals.Add("DoorInterface_IP", "stranger door insterface");
+            _hideDoorObjectsEquals.Add("Door_A", "stranger door wing A");
+            _hideDoorObjectsEquals.Add("Door_B", "stranger door wing B");
+            _hideDoorObjectsEquals.Add("COL_IP_Door_A", "stranger dream hotel door collision A");
+            _hideDoorObjectsEquals.Add("COL_IP_Door_B", "stranger dream hotel door collision B");
+            _hideDoorObjectsEquals.Add("Door_B", "stranger door wing B");
+            _hideDoorObjectsEquals.Add("ElevatorDestinations", "stranger elevator");
+            _hideDoorObjectsEquals.Add("Sarc_Piece_A", "stranger sarcophagus door A");
+            _hideDoorObjectsEquals.Add("Sarc_Piece_B", "stranger sarcophagus door B");
+            _hideDoorObjectsEquals.Add("SecretMuralPassage", "stranger dream hotel passage mural");
 
             _hideDoorObjectsConatins.Add("Cactus", "all variants and plants on cacti");
             _hideDoorObjectsConatins.Add("Structure_NOM_RotatingDoor_Panel", "both sided rotating orb door");
             _hideDoorObjectsConatins.Add("EmergencyHatch", "general emergency hatches");
+            _hideDoorObjectsConatins.Add("SecretPassage", "stranger home world mural secret passage");
         }
 
         private bool IsHideableObject(GameObject obj)
