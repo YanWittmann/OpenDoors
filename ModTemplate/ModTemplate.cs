@@ -33,12 +33,17 @@ namespace ModTemplate
             ModHelper.Console.WriteLine($"Loaded Open Doors mod", MessageType.Success);
             LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
             {
-                if (loadScene != OWScene.SolarSystem || _ready) return;
-                CreateDoorObjectNames();
-                ModHelper.Console.WriteLine($"Open Doors mod is now ready", MessageType.Success);
-                _ready = true;
+                if (loadScene != OWScene.SolarSystem) return;
+
                 InitializeComplexElements();
                 SetOpenStateOfComplexElements(false);
+
+                if (_ready) return;
+
+                CreateDoorObjectNames();
+
+                ModHelper.Console.WriteLine($"Open Doors mod is now ready", MessageType.Success);
+                _ready = true;
             };
         }
 
@@ -216,14 +221,33 @@ namespace ModTemplate
             _hideDoorObjectsByFullPath.Add(
                 "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_CannonPath/Geometry_CannonPath/BatchedGroup/BatchedMeshColliders_0",
                 "sunless city cannon path stones colliders");
-            //_hideDoorObjectsByFullPath.Add("BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_Entrance/Geometry_HangingCity_Entrance/BatchedGroup/BatchedMeshRenderers_15", "hanging city tower collapsed"); // collision is only disable-able on the entire tower
-            //_hideDoorObjectsByFullPath.Add("BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_Entrance/Geometry_HangingCity_Entrance/BatchedGroup/BatchedMeshRenderers_7", "hanging city tower collapsed"); // if there were a way to only disable the collision on these two...
+            // collision is only disable-able on the entire tower. if there were a way to only disable the collision on these two...
+            //_hideDoorObjectsByFullPath.Add("BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_Entrance/Geometry_HangingCity_Entrance/BatchedGroup/BatchedMeshRenderers_15", "hanging city tower collapsed");
+            //_hideDoorObjectsByFullPath.Add("BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_Entrance/Geometry_HangingCity_Entrance/BatchedGroup/BatchedMeshRenderers_7", "hanging city tower collapsed");
             _hideDoorObjectsByFullPath.Add(
                 "BrittleHollow_Body/Sector_BH/Sector_QuantumFragment/Interactables_QuantumFragment/VisibleFrom_BH/ProbeWindows",
                 "tower of quantum knowledge top/side probe windows");
             _hideDoorObjectsByFullPath.Add(
                 "BrittleHollow_Body/Sector_BH/Sector_OldSettlement/Fragment OldSettlement 0/Core_OldSettlement0/Interactables_Core_OldSettlement0/probeWindow (1)",
                 "old settlement center piece probe window");
+            // this will also disable all water physics, making the islands sink to the core. it can also only be reactivated if you leave the planet and reenter it.
+            //_hideDoorObjectsByFullPath.Add("GiantsDeep_Body/Sector_GD/Sector_GDInterior/Effects_GDInterior/Effects_GD_Current", "giants deep current visuals");
+            //_hideDoorObjectsByFullPath.Add("GiantsDeep_Body/Sector_GD/Volumes_GD/Ocean_Fluid_Audio_Rain", "giants deep current pushback");
+            _hideDoorObjectsByFullPath.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_GD/Volumes_GDState/HurricaneFluidVolume",
+                "quantum moon gd tornado physics");
+            _hideDoorObjectsByFullPath.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_GD/Effects_GDState/Effects_GD_Hurricane (1)",
+                "quantum moon gd tornado visuals");
+            _hideDoorObjectsByFullPath.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshRenderers_0",
+                "quantum moon db north obstacle visuals");
+            _hideDoorObjectsByFullPath.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshColliders_0",
+                "quantum moon db north obstacle colliders");
+            _hideDoorObjectsByFullPath.Add(
+                "Comet_Body/Sector_CO/Geometry_CO/MeltingIce",
+                "interloper melting ice");
 
             _hideDoorObjectsEquals.Add("slabs_door", "large orb doors");
             _hideDoorObjectsEquals.Add("Structure_NOM_RotatingDoor_Broken_Panels", "single sided rotating orb door");
@@ -238,12 +262,13 @@ namespace ModTemplate
             _hideDoorObjectsEquals.Add("Props_GM_Clutter", "ghost matter");
             _hideDoorObjectsEquals.Add("Airlock_OuterSphere", "airlock outer sphere");
             _hideDoorObjectsEquals.Add("Airlcok_MidSphere", "airlock mid sphere");
+            _hideDoorObjectsEquals.Add("Fol_GM_Clutter", "interloper ghost matter patches");
+            _hideDoorObjectsEquals.Add("OPC_Connector_Broken_BrokenPiece",
+                "orbital probe cannon alunch module broken pieces");
 
             _hideDoorObjectsConatins.Add("Cactus", "all variants and plants on cacti");
             _hideDoorObjectsConatins.Add("Structure_NOM_RotatingDoor_Panel", "both sided rotating orb door");
             _hideDoorObjectsConatins.Add("EmergencyHatch", "general emergency hatches");
-
-            // BrittleHollow_Body/Sector_BH/Sector_QuantumFragment/Interactables_QuantumFragment/Undercrust/GravityFloorVolumes/
         }
 
         private bool IsHideableObject(GameObject obj)
@@ -332,7 +357,8 @@ namespace ModTemplate
             gravityVolume.transform.localScale = scale;
 
             ModHelper.Console.WriteLine(
-                $"Cloned {gravityVolume.transform.parent.name} to {gravityVolume.name} with offset {offset} and scale {scale}");
+                $"Cloned {gravityVolume.transform.parent.name} to {gravityVolume.name} with offset {offset} and scale {scale}",
+                MessageType.Debug);
 
             return gravityVolume;
         }

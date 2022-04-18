@@ -24,3 +24,8 @@ This currently includes:
   - tower of quantum knowledge: gravity stairs (not visually, only gravity volumes are spawned)
   - tower of quantum knowledge: scout launch holes on middle section
   - old settlement: center piece probe window
+  - orbital probe cannon: debris blocking launch module
+  - interloper: melting ice
+  - interloper: specific ghost matter patches
+  - quantum moon, giant's deep: north pole tornado
+  - quantum moon, dark bramble: north pole brambles (**!** *disables ground collision on entire planet, use jetpack* **!**)
