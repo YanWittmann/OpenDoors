@@ -14,6 +14,8 @@ This currently includes:
   - tractor beams (toggle active)
   - cacti
   - ghost matter
+  - emergency hatches
+  - airlocks
 - and some specific places
   - anglerfish overview pod path: stalagmites that block the way
   - lakebed: first maze cave part stalagmites
@@ -21,3 +23,4 @@ This currently includes:
   - sunless city cannon path: stones and cacti in ghost matter building
   - tower of quantum knowledge: gravity stairs (not visually, only gravity volumes are spawned)
   - tower of quantum knowledge: scout launch holes on middle section
+  - old settlement: center piece probe window

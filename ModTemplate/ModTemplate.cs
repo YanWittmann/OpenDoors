@@ -221,6 +221,9 @@ namespace ModTemplate
             _hideDoorObjectsByFullPath.Add(
                 "BrittleHollow_Body/Sector_BH/Sector_QuantumFragment/Interactables_QuantumFragment/VisibleFrom_BH/ProbeWindows",
                 "tower of quantum knowledge top/side probe windows");
+            _hideDoorObjectsByFullPath.Add(
+                "BrittleHollow_Body/Sector_BH/Sector_OldSettlement/Fragment OldSettlement 0/Core_OldSettlement0/Interactables_Core_OldSettlement0/probeWindow (1)",
+                "old settlement center piece probe window");
 
             _hideDoorObjectsEquals.Add("slabs_door", "large orb doors");
             _hideDoorObjectsEquals.Add("Structure_NOM_RotatingDoor_Broken_Panels", "single sided rotating orb door");
@@ -233,9 +236,12 @@ namespace ModTemplate
             _hideDoorObjectsEquals.Add("DarkMatterVolume", "ghost matter");
             _hideDoorObjectsEquals.Add("GhostMatter_Clutter", "ghost matter");
             _hideDoorObjectsEquals.Add("Props_GM_Clutter", "ghost matter");
+            _hideDoorObjectsEquals.Add("Airlock_OuterSphere", "airlock outer sphere");
+            _hideDoorObjectsEquals.Add("Airlcok_MidSphere", "airlock mid sphere");
 
             _hideDoorObjectsConatins.Add("Cactus", "all variants and plants on cacti");
             _hideDoorObjectsConatins.Add("Structure_NOM_RotatingDoor_Panel", "both sided rotating orb door");
+            _hideDoorObjectsConatins.Add("EmergencyHatch", "general emergency hatches");
 
             // BrittleHollow_Body/Sector_BH/Sector_QuantumFragment/Interactables_QuantumFragment/Undercrust/GravityFloorVolumes/
         }
