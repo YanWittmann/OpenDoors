@@ -23,7 +23,7 @@ namespace OpenDoors
 
         private void Start()
         {
-            ModHelper.Console.WriteLine($"Loaded Open Doors mod", MessageType.Success);
+            ModHelper.Console.WriteLine($"Loaded OpenDoors mod", MessageType.Success);
             LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
             {
                 if (loadScene != OWScene.SolarSystem) return;
@@ -35,12 +35,12 @@ namespace OpenDoors
 
                 CreateDoorObjectNames();
 
-                ModHelper.Console.WriteLine($"Open Doors mod is now ready", MessageType.Success);
+                ModHelper.Console.WriteLine($"OpenDoors mod is now ready", MessageType.Success);
                 _ready = true;
             };
         }
 
-        private void InteractionNearbyObjects(bool activateCollision)
+        private void InteractionNearbyObjects(bool activateCollision, bool filtered)
         {
             var start = DateTime.Now;
 
@@ -48,13 +48,10 @@ namespace OpenDoors
             var playerPos = playerBody.transform.position;
 
             var allGameObjects = GetAllGameObjectsAroundPosition(playerPos, _maxDistance);
-            var numObjects = 0;
 
             foreach (var obj in allGameObjects)
             {
-                numObjects++;
-
-                if (IsHideableObject(obj))
+                if (IsHideableObject(obj, activateCollision || filtered))
                 {
                     SetGameObjectVisibility(obj, activateCollision);
                 }
@@ -65,8 +62,13 @@ namespace OpenDoors
             SetOpenStateOfComplexElements(!activateCollision);
 
             ModHelper.Console.WriteLine(activateCollision
-                ? $"Closed surrounding doors in {(DateTime.Now - start).TotalMilliseconds} ms"
-                : $"Opened surrounding doors in {(DateTime.Now - start).TotalMilliseconds} ms");
+                ? $"OpenDoors: closed surrounding doors ({(DateTime.Now - start).TotalMilliseconds} ms)"
+                : $"OpenDoors: opened surrounding doors ({(DateTime.Now - start).TotalMilliseconds} ms)");
+
+            NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
+                activateCollision
+                    ? "CLOSED SURROUNDING PATHWAYS"
+                    : "OPENED SURROUNDING PATHWAYS"));
         }
 
         private HashSet<GameObject> GetAllGameObjectsAroundPosition(Vector3 referencePosition, float maxDistance)
@@ -156,6 +158,7 @@ namespace OpenDoors
 
         private Dictionary<string, string> _hideDoorObjectsByFullPath = new();
         private Dictionary<string, string> _hideDoorObjectsEquals = new();
+        private Dictionary<string, string> _hideDoorObjectsEqualsFiltered = new();
         private Dictionary<string, string> _hideDoorObjectsConatins = new();
 
         private void CreateDoorObjectNames()
@@ -233,11 +236,12 @@ namespace OpenDoors
                 "DreamWorld_Body/Sector_DreamWorld/Sector_Underground/Volumes_Underground/WaterVolume_Underground",
                 "stranger dream underground sector water volume");
 
+            _hideDoorObjectsEqualsFiltered.Add("Props_NOM_TractorBeam", "tractor beam (ring)");
+            _hideDoorObjectsEqualsFiltered.Add("BeamVolume", "tractor beam (beam)");
+
             _hideDoorObjectsEquals.Add("slabs_door", "large orb doors");
             _hideDoorObjectsEquals.Add("Structure_NOM_RotatingDoor_Broken_Panels", "single sided rotating orb door");
             _hideDoorObjectsEquals.Add("PointLight_NOM_OrbSmall", "general door orb");
-            _hideDoorObjectsEquals.Add("Props_NOM_TractorBeam", "tractor beam (ring)");
-            _hideDoorObjectsEquals.Add("BeamVolume", "tractor beam (beam)");
             _hideDoorObjectsEquals.Add("HazardVolume", "removes all hazards");
             _hideDoorObjectsEquals.Add("Cacti", "cactus parent object");
             _hideDoorObjectsEquals.Add("DarkMatter", "ghost matter");
@@ -255,6 +259,7 @@ namespace OpenDoors
             _hideDoorObjectsEquals.Add("COL_IP_Door_A", "stranger dream hotel door collision A");
             _hideDoorObjectsEquals.Add("COL_IP_Door_B", "stranger dream hotel door collision B");
             _hideDoorObjectsEquals.Add("ElevatorDestinations", "stranger elevator");
+            _hideDoorObjectsEquals.Add("Prefab_IP_CageElevator", "stranger elevator");
             _hideDoorObjectsEquals.Add("Sarc_Piece_A", "stranger sarcophagus door A");
             _hideDoorObjectsEquals.Add("Sarc_Piece_B", "stranger sarcophagus door B");
             _hideDoorObjectsEquals.Add("SecretMuralPassage", "stranger dream hotel passage mural");
@@ -265,11 +270,16 @@ namespace OpenDoors
             _hideDoorObjectsConatins.Add("SecretPassage", "stranger home world mural secret passage");
         }
 
-        private bool IsHideableObject(GameObject obj)
+        private bool IsHideableObject(GameObject obj, bool filtered)
         {
             var objectName = GetObjectNameOnly(obj);
 
             if (_hideDoorObjectsEquals.ContainsKey(objectName))
+            {
+                return true;
+            }
+
+            if (filtered && _hideDoorObjectsEqualsFiltered.ContainsKey(objectName))
             {
                 return true;
             }
@@ -361,29 +371,43 @@ namespace OpenDoors
         {
             if (!_ready) return;
 
-            if (Keyboard.current[Key.O].wasPressedThisFrame)
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.I].wasPressedThisFrame)
             {
-                InteractionNearbyObjects(false);
+                InteractionNearbyObjects(false, false);
             }
 
-            if (Keyboard.current[Key.P].wasPressedThisFrame)
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.P].wasPressedThisFrame)
             {
-                InteractionNearbyObjects(true);
+                InteractionNearbyObjects(true, false);
             }
 
-            if (Keyboard.current[Key.K].wasPressedThisFrame)
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.K].wasPressedThisFrame)
+            {
+                InteractionNearbyObjects(false, true);
+            }
+
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.Digit0].wasPressedThisFrame)
             {
                 _maxDistance = _maxDistance + 10;
                 ModHelper.Console.WriteLine($"Max distance: {_maxDistance}");
+                NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
+                    $"SET RADIUS TO [{_maxDistance}]"));
             }
 
-            if (Keyboard.current[Key.J].wasPressedThisFrame)
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.Digit9].wasPressedThisFrame)
             {
                 _maxDistance = _maxDistance - 10;
+                if (_maxDistance < 0)
+                {
+                    _maxDistance = 0;
+                }
+
                 ModHelper.Console.WriteLine($"Max distance: {_maxDistance}");
+                NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
+                    $"SET RADIUS TO [{_maxDistance}]"));
             }
 
-            if (_debugMode && Keyboard.current[Key.I].wasPressedThisFrame)
+            if (_debugMode && !Keyboard.current[Key.O].isPressed && Keyboard.current[Key.I].wasPressedThisFrame)
             {
                 var clipboardText = GetClipboardText();
                 if (clipboardText.Length > 0)
@@ -392,6 +416,9 @@ namespace OpenDoors
                     _hideDoorObjectsEquals.Add(clipboardText, clipboardText + " (from clipboard)");
                     _hideDoorObjectsConatins.Add(clipboardText, clipboardText + " (from clipboard)");
                     _hideDoorObjectsByFullPath.Add(clipboardText, clipboardText + " (from clipboard)");
+
+                    NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
+                        $"Added {clipboardText} to hide-able objects"));
                 }
             }
         }
