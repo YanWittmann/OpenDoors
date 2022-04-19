@@ -32,29 +32,9 @@ Sun Station Tower without cacti
 
 ![](showcase_sun_tower_cacti.png)
 
-Dream World Hotel: Movie night with friends (by removing the door) (uses the cheats mod to make the inhabitants passive)
-
-![](showcase_hotel_movie_night_with_friends_lights_on_door.png)
-
-Dream World Hotel: Some more friends
-
-![](showcase_hotel_visit_friends_with_light_on_door.png)
-
-Abandoned Temple without entering the code (by removing the door & elevator)
-
-![](showcase_abandoned_temple_elevator.png)
-
 Dream World Hotel: Removed the hidden mural and opened the door with lights still on
 
 ![](showcase_hotel_hidden_mural.png)
-
-Sunless City cannon path without rocks
-
-![](showcase_sunless_city_cannon_path.png)
-
-Forbidden Archives: Get to the hidden slide reel
-
-![](showcase_forbidden_archive_get_slide_reel_door.png)
 
 Interloper shuttle: remove the ice spires (requires `O` + `K`)
 
@@ -63,6 +43,26 @@ Interloper shuttle: remove the ice spires (requires `O` + `K`)
 Interloper inside: pass through some ghost matter
 
 ![](showcase_interloper_interior_ghost_matter.png)
+
+Dream World Hotel: Movie night with friends (by removing the door) (uses the cheats mod to make the inhabitants passive)
+
+![](showcase_hotel_movie_night_with_friends_lights_on_door.png)
+
+Stranger: open hidden doors
+
+![](showcase_stranger_hidden_door.png)
+
+Skip the tower puzzle and open the hidden mural pathway
+
+![](showcase_tower_puzzle_mural.png)
+
+Abandoned Temple without entering the code (by removing the door & elevator)
+
+![](showcase_abandoned_temple_elevator.png)
+
+Sunless City cannon path without rocks
+
+![](showcase_sunless_city_cannon_path.png)
 
 White Hole Station: Airlocks
 
@@ -84,19 +84,19 @@ Eye Shrine District: Open the eye symbol to the outside (messes up gravity when 
 
 ![](showcase_sunless_city_eye_shrine_glass_symbol.png)
 
+Gabbro island: Why not some more ghost matter?
+
+![](showcase_gabbroisland_ghost_matter.png)
+
 Signal Jammer house: remove the scout wall
 
 ![](showcase_signal_jammer_scout_wall.png)
 
-Skip the tower puzzle and open the hidden mural pathway
-
-![](showcase_tower_puzzle_mural.png)
-
-Stranger: open any door, even the hidden ones
+Open any door on the stranger
 
 ![](showcase_lowlands_door.png)
 
-... or the ones that you can only open from one side
+... even the ones that you can only open from one side
 
 ![](showcase_damaged_laboratory_door.png)
 
@@ -108,6 +108,10 @@ The prisoner!
 
 ![](showcase_prisoner_vault_open.png)
 
+Dream World Hotel: Some more friends
+
+![](showcase_hotel_visit_friends_with_light_on_door.png)
+
 Open the southern observatory door
 
 ![](showcase_southern_observatory.png)
@@ -116,6 +120,6 @@ Open the southern observatory door
 
 ![](showcase_southern_observatory_tractor.png)
 
-Gabbro island: Why not some more ghost matter?
+Forbidden Archives: Get to the hidden slide reel
 
-![](showcase_gabbroisland_ghost_matter.png)
+![](showcase_forbidden_archive_get_slide_reel_door.png)
