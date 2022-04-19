@@ -1,11 +1,10 @@
 ![Open Doors (Outer Wilds Mod) Thumbnail](doc/open_doors_thumb.png)
 
-# Open Doors (Outer Wilds Mod)
+# Open Doors (Outer Wilds Mod) _(WIP)_
 
-This Mod will allow you open any closed doors in the Game Outer Wilds, such as Nomai rotating orb doors.  
-Of cause, this does not only include doors, but other pathways as well.
+This Mod will allow you open any closed doors and other pathways in the Game Outer Wilds, such as closed Nomai doors.
 
-A small showcase of the open-able pathways **[can be found here](doc/showcase.md)**.
+**[Example locations](doc/showcase.md)** for you to try out.
 
 ## Controls
 
@@ -19,7 +18,7 @@ The `O` key is the activation key for this mod. You will have to hold it down wh
 | `O` + `9` |             Reduce door search radius by 10              |
 | `O` + `0` |            Increase door search radius by 10             |
 
-It is highly recommended to close the pathways after using them, otherwise you might stumble on some missing geometry
+It is recommended to close the pathways after using them, otherwise you might stumble on some missing geometry
 later on.
 
 ## Affected Objects
@@ -28,16 +27,14 @@ This currently includes:
 
 - all occurrences of:
     - large orb doors
-    - single sided rotating orb door
-    - both sided rotating orb door
+    - single/both sided rotating orb door
     - tractor beams (toggle active) (use `O` + `K` for this)
     - cacti
     - ghost matter
     - emergency hatches
-    - airlocks
-    - stranger light rotating sun doors
-    - stranger secret passage murals
-    - dream world closed doors
+    - nomai space airlocks
+    - stranger two-winged doors (+ those in dream world)
+    - stranger secret passage murals (+ those in dream world)
     - stranger elevators (removes entire elevator)
 - and some specific places
     - anglerfish overview pod path: stalagmites that block the way
@@ -48,7 +45,7 @@ This currently includes:
     - tower of quantum knowledge: scout launch holes on middle section
     - old settlement: center piece probe window
     - orbital probe cannon: debris blocking launch module
-    - interloper: melting ice
+    - interloper: melting ice on sunward side
     - interloper: specific ghost matter patches
     - interloper: ice spires around comet (**!** *disables all ice collision, make sure to stand on stone* **!**) (use `O` + `K` for
       this)
