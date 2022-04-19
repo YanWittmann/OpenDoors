@@ -44,6 +44,10 @@ Interloper inside: pass through some ghost matter
 
 ![](showcase_interloper_interior_ghost_matter.png)
 
+Interloper sunward side: remove melting ice
+
+![](showcase_interloper_sunward_side_ice.png)
+
 Dream World Hotel: Movie night with friends (by removing the door) (uses the cheats mod to make the inhabitants passive)
 
 ![](showcase_hotel_movie_night_with_friends_lights_on_door.png)
@@ -119,6 +123,10 @@ Open the southern observatory door
 ... and pass down to the actual entrance by disabling the tractor beam
 
 ![](showcase_southern_observatory_tractor.png)
+
+Open all large doors!
+
+![](showcase_nomai_mines_large_door.png)
 
 Forbidden Archives: Get to the hidden slide reel
 
