@@ -1,4 +1,4 @@
-![Open Doors (Outer Wilds Mod) Thumbnail](doc/open_doors_thumb.png)
+![Open Doors (Outer Wilds Mod) Thumbnail](doc/open_doors_thumb_sm.png)
 
 # Open Doors (Outer Wilds Mod) _(WIP)_
 
