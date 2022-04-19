@@ -11,13 +11,13 @@ A small showcase of the open-able pathways **[can be found here](doc/showcase.md
 
 The `O` key is the activation key for this mod. You will have to hold it down while pressing the keys below:
 
-|    Key    |                          Action                           |
-|:---------:|:---------------------------------------------------------:|
-| `O` + `I` | Open surrounding pathways<br/>(keep tractor beams active) |
-| `O` + `K` |                 Open surrounding pathways                 |
-| `O` + `P` |                Close surrounding pathways                 |
-| `O` + `9` |              Reduce door search radius by 10              |
-| `O` + `0` |             Increase door search radius by 10             |
+|    Key    |                          Action                          |
+|:---------:|:--------------------------------------------------------:|
+| `O` + `I` | Open surrounding pathways<br/>(ignores specific objects) |
+| `O` + `K` |           Open surrounding pathways<br/>(all)            |
+| `O` + `P` |                Close surrounding pathways                |
+| `O` + `9` |             Reduce door search radius by 10              |
+| `O` + `0` |            Increase door search radius by 10             |
 
 It is highly recommended to close the pathways after using them, otherwise you might stumble on some missing geometry
 later on.
@@ -50,9 +50,11 @@ This currently includes:
     - orbital probe cannon: debris blocking launch module
     - interloper: melting ice
     - interloper: specific ghost matter patches
+    - interloper: ice spires around comet (**!** *disables all ice collision, make sure to stand on stone* **!**) (use `O` + `K` for
+      this)
     - quantum moon, giant's deep: north pole tornado
     - quantum moon, dark bramble: north pole brambles (**!** *disables ground collision on entire planet, use
-      jetpack* **!**)
+      jetpack* **!**) (use `O` + `K` for this)
     - stranger dam combination house: scout launch hole
     - stranger bell: prisoner vault
 

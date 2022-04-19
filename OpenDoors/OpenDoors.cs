@@ -23,7 +23,7 @@ namespace OpenDoors
 
         private void Start()
         {
-            ModHelper.Console.WriteLine($"Loaded OpenDoors mod", MessageType.Success);
+            ModHelper.Console.WriteLine($"OpenDoors mod loaded", MessageType.Success);
             LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
             {
                 if (loadScene != OWScene.SolarSystem) return;
@@ -57,7 +57,7 @@ namespace OpenDoors
                 }
             }
 
-            SetFullPathObjectsVisibility(activateCollision);
+            SetFullPathObjectsVisibility(activateCollision, filtered);
 
             SetOpenStateOfComplexElements(!activateCollision);
 
@@ -68,7 +68,7 @@ namespace OpenDoors
             NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
                 activateCollision
                     ? "CLOSED SURROUNDING PATHWAYS"
-                    : "OPENED SURROUNDING PATHWAYS"));
+                    : "OPENED " + (filtered ? "ALL " : "") + "SURROUNDING PATHWAYS"));
         }
 
         private HashSet<GameObject> GetAllGameObjectsAroundPosition(Vector3 referencePosition, float maxDistance)
@@ -113,13 +113,23 @@ namespace OpenDoors
             return GUIUtility.systemCopyBuffer;
         }
 
-        private void SetFullPathObjectsVisibility(bool visible)
+        private void SetFullPathObjectsVisibility(bool visible, bool filtered)
         {
             foreach (var (key, value) in _hideDoorObjectsByFullPath)
             {
                 var obj = GameObject.Find(key);
                 if (obj == null) continue;
                 SetGameObjectVisibility(obj, visible);
+            }
+
+            if (visible || filtered)
+            {
+                foreach (var (key, value) in _hideDoorObjectsByFullPathFiltered)
+                {
+                    var obj = GameObject.Find(key);
+                    if (obj == null) continue;
+                    SetGameObjectVisibility(obj, visible);
+                }
             }
         }
 
@@ -157,6 +167,7 @@ namespace OpenDoors
         }
 
         private Dictionary<string, string> _hideDoorObjectsByFullPath = new();
+        private Dictionary<string, string> _hideDoorObjectsByFullPathFiltered = new();
         private Dictionary<string, string> _hideDoorObjectsEquals = new();
         private Dictionary<string, string> _hideDoorObjectsEqualsFiltered = new();
         private Dictionary<string, string> _hideDoorObjectsConatins = new();
@@ -203,12 +214,6 @@ namespace OpenDoors
                 "QuantumMoon_Body/Sector_QuantumMoon/State_GD/Effects_GDState/Effects_GD_Hurricane (1)",
                 "quantum moon gd tornado visuals");
             _hideDoorObjectsByFullPath.Add(
-                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshRenderers_0",
-                "quantum moon db north obstacle visuals");
-            _hideDoorObjectsByFullPath.Add(
-                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshColliders_0",
-                "quantum moon db north obstacle colliders");
-            _hideDoorObjectsByFullPath.Add(
                 "Comet_Body/Sector_CO/Geometry_CO/MeltingIce",
                 "interloper melting ice");
             _hideDoorObjectsByFullPath.Add(
@@ -235,9 +240,6 @@ namespace OpenDoors
             _hideDoorObjectsByFullPath.Add(
                 "DreamWorld_Body/Sector_DreamWorld/Sector_Underground/Volumes_Underground/WaterVolume_Underground",
                 "stranger dream underground sector water volume");
-
-            _hideDoorObjectsEqualsFiltered.Add("Props_NOM_TractorBeam", "tractor beam (ring)");
-            _hideDoorObjectsEqualsFiltered.Add("BeamVolume", "tractor beam (beam)");
 
             _hideDoorObjectsEquals.Add("slabs_door", "large orb doors");
             _hideDoorObjectsEquals.Add("Structure_NOM_RotatingDoor_Broken_Panels", "single sided rotating orb door");
@@ -268,6 +270,23 @@ namespace OpenDoors
             _hideDoorObjectsConatins.Add("Structure_NOM_RotatingDoor_Panel", "both sided rotating orb door");
             _hideDoorObjectsConatins.Add("EmergencyHatch", "general emergency hatches");
             _hideDoorObjectsConatins.Add("SecretPassage", "stranger home world mural secret passage");
+
+
+            _hideDoorObjectsEqualsFiltered.Add("Props_NOM_TractorBeam", "tractor beam (ring)");
+            _hideDoorObjectsEqualsFiltered.Add("BeamVolume", "tractor beam (beam)");
+
+            _hideDoorObjectsByFullPathFiltered.Add(
+                "Comet_Body/Sector_CO/Geometry_CO/Frictionless_Batched/BatchedGroup",
+                "interloper ice spires collision");
+            _hideDoorObjectsByFullPathFiltered.Add(
+                "Comet_Body/Sector_CO/Geometry_CO/Frictionless_Batched/OtherComponentsGroup/Spires/Rock_Ice_MergedSpires",
+                "interloper ice spires geometry");
+            _hideDoorObjectsByFullPathFiltered.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshRenderers_0",
+                "quantum moon db north obstacle visuals");
+            _hideDoorObjectsByFullPathFiltered.Add(
+                "QuantumMoon_Body/Sector_QuantumMoon/State_DB/Geometry_DBState/BatchedGroup/BatchedMeshColliders_0",
+                "quantum moon db north obstacle colliders");
         }
 
         private bool IsHideableObject(GameObject obj, bool filtered)
@@ -392,6 +411,15 @@ namespace OpenDoors
                 ModHelper.Console.WriteLine($"Max distance: {_maxDistance}");
                 NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
                     $"SET RADIUS TO [{_maxDistance}]"));
+            }
+
+            if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.M].isPressed &&
+                Keyboard.current[Key.N].wasPressedThisFrame)
+            {
+                _debugMode = !_debugMode;
+                ModHelper.Console.WriteLine($"Debug mode: {_debugMode}");
+                NotificationManager.SharedInstance.PostNotification(new NotificationData(NotificationTarget.Player,
+                    "DEBUG MODE " + (_debugMode ? "ACTIVATED" : "DISABLED")));
             }
 
             if (Keyboard.current[Key.O].isPressed && Keyboard.current[Key.Digit9].wasPressedThisFrame)
