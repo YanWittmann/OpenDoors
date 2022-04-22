@@ -1,8 +1,9 @@
 ![Open Doors (Outer Wilds Mod) Thumbnail](doc/open_doors_thumb_sm.png)
 
-# Open Doors (Outer Wilds Mod)
+# Open Doors - An Outer Wilds Mod
 
-This Mod will allow you open any closed doors and other pathways in the Game Outer Wilds.
+This Mod will allow you open any closed doors and other pathways in the Game Outer Wilds.  
+Get it on the **[Outer Wilds Mod Manager](https://outerwildsmods.com/mods/opendoors/)**!
 
 Here are some **[example locations](doc/showcase.md)** for you to try out, or see the list of affected elements below.
 
